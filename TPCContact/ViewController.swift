@@ -12,7 +12,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        TPCContactManager.shareManager.loadAddressBook()
+//        print(TPCContactManager.shareManager.contacts)
     }
 
     override func didReceiveMemoryWarning() {
