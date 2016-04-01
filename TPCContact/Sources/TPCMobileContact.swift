@@ -32,6 +32,10 @@ public class TPCMobileContact: NSObject, NSCoding {
         aCoder.encodeObject(fullName)
         aCoder.encodeObject(phonesArray)
     }
+    
+    public override var description: String {
+        return "fullName: \(fullName), phonesArray: \(phonesArray)\n"
+    }
 }
 
 extension TPCMobileContact {

@@ -9,10 +9,36 @@
 import UIKit
 
 class TPCContactHelper: NSObject {
-    static func systemVersion() -> Double {
-        return Double(UIDevice.currentDevice().systemVersion) ?? 8.0
+    static func systemVersion() -> String {
+        return UIDevice.currentDevice().systemVersion
     }
     
+    /**
+     异步callback，同步completion
+     
+     - parameter callBack:   异步callback
+     - parameter completion: 同步completion
+     */
+    static func callAsyncBlock(block: () -> Void, syncCompletion completion: () -> Void) -> Void {
+        let currentQueue = NSOperationQueue.currentQueue()
+        let operation = NSBlockOperation(block: block)
+        operation.completionBlock = {
+            currentQueue?.addOperation(NSBlockOperation(block: completion))
+        }
+        NSOperationQueue().addOperation(operation)
+    }
+    
+    /**
+     同步callback，异步completion
+     
+     - parameter callBack:   同步callback
+     - parameter completion: 异步completion
+     */
+    static func callSyncBlock(block: () -> Void, asyncCompletion completion: () -> Void) -> Void {
+        let operation = NSBlockOperation(block: block)
+        operation.completionBlock = completion
+        NSOperationQueue.currentQueue()?.addOperation(operation)
+    }
 }
 
 typealias AddressPhoneNumber = String

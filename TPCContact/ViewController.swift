@@ -12,8 +12,22 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        TPCContactManager.shareManager.loadAddressBook()
-//        print(TPCContactManager.shareManager.contacts)
+        TPCContactManager.shareManager.fetchContactsWithCompletion { (contacts) in
+            print(contacts)
+        }
+        
+//        TPCContactHelper.asyncCallBack({
+//            print( "b: \(NSThread.currentThread())")
+//            }) {
+//                print(NSThread.currentThread())
+//        }
+//        
+//        TPCContactHelper.syncCallBack({
+//            print( "b: \(NSThread.currentThread())")
+//        }) {
+//            print(NSThread.currentThread())
+//        }
+//        print(TPCContactMan.asager.shareManager.contacts)
     }
 
     override func didReceiveMemoryWarning() {
